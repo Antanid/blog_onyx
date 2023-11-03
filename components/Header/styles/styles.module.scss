@@ -1,0 +1,11 @@
+.header{
+    @apply bg-red-100 flex items-center h-20 px-3;
+    img{
+        cursor: pointer;
+    }
+    .header_logoText{
+        h1{
+            @apply font-semibold text-xl md:text-2xl ml-8 tracking-wider text-red-400 cursor-pointer
+        }
+    }
+}

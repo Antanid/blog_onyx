@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  margin: 0;
+  padding: 0;
+}
+.homeBlockH1{
+  text-align: center;
+  margin: 40px 0;
+  font-size: 40px;
+}

@@ -1,0 +1,33 @@
+.blog_div {
+    @apply mx-auto max-w-screen-md;
+
+    h2 {
+        @apply text-xl font-semibold mb-3;
+    }
+
+    .blog_div_text {
+        p {
+            @apply text-gray-700;
+        }
+    }
+
+    .blog_div_buttonLike {
+        @apply flex items-center mt-5 mb-4;
+
+        button {
+            @apply mr-4;
+        }
+
+        p {
+            @apply text-gray-600;
+        }
+    }
+
+    .blog_div_bottomLine{
+ @apply flex justify-center items-center mb-16;
+        .blog_div_bottomLine_line{
+         @apply w-3/4 mx-auto border-b border-gray-400;
+        }
+    }
+
+}
