@@ -1,10 +1,11 @@
 import style from "./style/style.module.scss";
-import { blogApi, useEditDataMutation, useGetDataQuery, useGetSingleDataQuery } from "@/redux/blogApi";
+import { blogApi } from "@/redux/blogApi";
 import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/Loader/Loader";
 import { store } from "@/redux/store";
+import { singleApi, useEditDataMutation, useGetSingleDataQuery } from "@/redux/singleApi";
 
 const EditPage = () => {
   const router = useRouter();
@@ -30,8 +31,16 @@ const EditPage = () => {
     };
     await mutate({ newData, id });
     await store.dispatch(blogApi.util.resetApiState());
+    await store.dispatch(singleApi.util.resetApiState());
     router.push("/");
   };
+
+  function goBack() {
+    const confirmed = window.confirm("Are you shure?");
+    if (confirmed) {
+      router.push("/");
+    }
+  }
 
   return (
     <div className={style.edits}>
@@ -48,7 +57,7 @@ const EditPage = () => {
             <textarea value={textArea} onChange={(e) => setTextArea(e.target.value)} />
           </div>
           <div className={style.edits_buttons}>
-            <button className={style.edits_buttons_cancel}>Cancel</button>
+            <button onClick={goBack} className={style.edits_buttons_cancel}>Cancel</button>
             <button onClick={onSaveEdit} className={style.edits_buttons_save}>
               Save edit
             </button>

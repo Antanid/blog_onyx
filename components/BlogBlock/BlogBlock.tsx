@@ -15,7 +15,7 @@ type BlogBlockType = {
   onDelete: (id: string) => void;
 };
 
-const BlogBlock: React.FC<BlogBlockType> = ({ title, mainText, date, likes, id, onDelete}) => {
+const BlogBlock: React.FC<BlogBlockType> = ({ title, mainText, date, likes, id, onDelete }) => {
   return (
     <div className={style.blog_div}>
       <div className={style.blog_titleDiv}>
@@ -36,7 +36,16 @@ const BlogBlock: React.FC<BlogBlockType> = ({ title, mainText, date, likes, id, 
         </div>
       </div>
       <div className={style.blog_div_text}>
-        <p>{mainText}</p>
+        {mainText.length > 230 ? (
+          <p>
+            {mainText.split("").slice(0, 229).join("")}
+            <Link href={`/single/${id}`}>
+            <span>...read more</span>
+            </Link>
+          </p>
+        ) : (
+          <p>{mainText}</p>
+        )}
       </div>
       <div className={style.blog_div_data_like}>
         <div className={style.blog_div_button}>

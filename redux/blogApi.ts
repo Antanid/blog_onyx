@@ -14,17 +14,17 @@ export const blogApi = createApi({
                 ]
                 : [{ type: 'Items', id: 'LIST' }],
         }),
-        getSingleData: build.query({
-            query: (id) => `blog/${id}`,
-        }),
-        editData: build.mutation({
-            query: ({ newData, id }) => ({
-                url: `blog/${id}`,
-                method: 'PUT',
-                body: newData,
-            }),
-            invalidatesTags: [{ type: 'Items', id: 'LIST' }]
-        }),
+        // getSingleData: build.query({
+        //     query: (id) => `blog/${id}`,
+        // }),
+        // editData: build.mutation({
+        //     query: ({ newData, id }) => ({
+        //         url: `blog/${id}`,
+        //         method: 'PUT',
+        //         body: newData,
+        //     }),
+        //     invalidatesTags: [{ type: 'Items', id: 'LIST' }]
+        // }),
         postData: build.mutation({
             query: (newData) => ({
                 url: `blog`,
@@ -46,7 +46,7 @@ export const blogApi = createApi({
 
 export const {
     useGetDataQuery,
-    useGetSingleDataQuery,
-    useEditDataMutation,
+    // useGetSingleDataQuery,
+    // useEditDataMutation,
     usePostDataMutation,
     useDeletetItemMutation } = blogApi;

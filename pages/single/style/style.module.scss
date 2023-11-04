@@ -1,0 +1,35 @@
+.singlePage {
+    @apply mx-auto max-w-screen-md p-4;
+
+    .singlePage_info {
+        .singlePage_info_title{
+            @apply mb-8;
+            h1{
+            @apply text-4xl font-extrabold tracking-wider;
+            }
+        }
+        .singlePage_info_main{
+            @apply mb-2;
+            p{
+                @apply text-xl
+            }
+        }
+        .single_div_data_like {
+            @apply flex items-center justify-between;
+
+            .single_div_button {
+                @apply flex items-center mt-5 mb-4;
+
+                button {
+                    @apply mr-4;
+                }
+
+                p {
+                    @apply text-gray-600;
+                }
+            }
+
+        }
+    }
+
+}

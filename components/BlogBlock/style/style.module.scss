@@ -10,10 +10,12 @@
 
         .blog_titleDiv_editDelete {
             @apply flex;
-            .blog_editImg{
+
+            .blog_editImg {
                 @apply cursor-pointer opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out
             }
-            button{
+
+            button {
                 @apply px-5 cursor-pointer opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out
             }
 
@@ -23,6 +25,10 @@
     .blog_div_text {
         p {
             @apply text-gray-700;
+
+            span {
+                @apply font-semibold cursor-pointer hover:underline;
+            }
         }
     }
 
