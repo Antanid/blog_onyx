@@ -1,8 +1,9 @@
 import BlogBlock from "@/components/BlogBlock/BlogBlock";
 import Loader from "@/components/Loader/Loader";
 import NewPost from "@/components/NewPost/NewPost";
-import { blogApi, useDeletetItemMutation, useGetDataQuery } from "@/redux/blogApi";
-import { useEffect } from "react";
+import { useDeletetItemMutation, useGetDataQuery } from "@/redux/blogApi";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
 interface blogDataType {
   title: string;
@@ -16,23 +17,31 @@ export default function Home() {
   // @ts-ignore
   const { data = [], isLoading } = useGetDataQuery();
   const [deleteItem] = useDeletetItemMutation();
+  const { data: session } = useSession();
 
   const onDelete = (id: string) => {
     const confirmed = window.confirm('Are you shure?');
     if(confirmed){
       deleteItem(id).unwrap
     }
-  }
+  }  
+
 
   return (
     <div>
-      <NewPost />
+       {
+         // @ts-ignore
+        session && session.user?.role === 'admin' &&
+          <NewPost />
+        }
+    
       <h1 className="homeBlockH1">Hello, this is my blog</h1>
       {isLoading ? (
         <Loader />
       ) : (
         [...data].reverse().map((i: blogDataType) => (
           <BlogBlock
+          session={session}
           onDelete={onDelete}
             key={i.id}
             title={i.title}

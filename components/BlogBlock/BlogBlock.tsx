@@ -13,34 +13,45 @@ type BlogBlockType = {
   likes: number;
   id: string;
   onDelete: (id: string) => void;
+  session: any;
 };
 
-const BlogBlock: React.FC<BlogBlockType> = ({ title, mainText, date, likes, id, onDelete }) => {
+const BlogBlock: React.FC<BlogBlockType> = ({
+  title,
+  mainText,
+  date,
+  likes,
+  id,
+  onDelete,
+  session,
+}) => {
   return (
     <div className={style.blog_div}>
       <div className={style.blog_titleDiv}>
         <h2>{title}</h2>
-        <div className={style.blog_titleDiv_editDelete}>
-          <Link href={`edit/${id}`}>
-            <Image
-              className={style.blog_editImg}
-              src={editImg}
-              alt="editText"
-              width={20}
-              height={20}
-            />
-          </Link>
-          <button onClick={() => onDelete(id)}>
-            <Image src={deleteImg} alt="editText" width={20} height={20} />
-          </button>
-        </div>
+        {session?.user?.role === "admin" && (
+          <div className={style.blog_titleDiv_editDelete}>
+            <Link href={`edit/${id}`}>
+              <Image
+                className={style.blog_editImg}
+                src={editImg}
+                alt="editText"
+                width={20}
+                height={20}
+              />
+            </Link>
+            <button onClick={() => onDelete(id)}>
+              <Image src={deleteImg} alt="editText" width={20} height={20} />
+            </button>
+          </div>
+        )}
       </div>
       <div className={style.blog_div_text}>
         {mainText.length > 230 ? (
           <p>
             {mainText.split("").slice(0, 229).join("")}
             <Link href={`/single/${id}`}>
-            <span>...read more</span>
+              <span>...read more</span>
             </Link>
           </p>
         ) : (

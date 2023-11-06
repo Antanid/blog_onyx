@@ -6,8 +6,10 @@ import React, { useEffect, useState } from "react";
 import Loader from "@/components/Loader/Loader";
 import { store } from "@/redux/store";
 import { singleApi, useEditDataMutation, useGetSingleDataQuery } from "@/redux/singleApi";
+import { useSession } from "next-auth/react";
 
 const EditPage = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
   // @ts-ignore
@@ -20,6 +22,13 @@ const EditPage = () => {
     setTextArea(data.mainText);
     setTitle(data.title);
   }, [isLoading]);
+
+  useEffect(() => {
+     // @ts-ignore
+if(session?.user?.role !== 'admin'){
+  router.push("/");
+}
+  }, [])
 
   const onSaveEdit = async () => {
     const newData = {
@@ -41,6 +50,8 @@ const EditPage = () => {
       router.push("/");
     }
   }
+  
+  console.log(session)
 
   return (
     <div className={style.edits}>

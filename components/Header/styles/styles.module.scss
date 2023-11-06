@@ -1,11 +1,34 @@
 .header{
-    @apply bg-red-100 flex items-center h-20 px-3 mb-8;
-    img{
-        cursor: pointer;
+    @apply bg-red-100 flex items-center justify-between h-20 px-3 mb-8;
+    .header_logoBLock{
+        @apply flex items-center; 
+        img{
+            cursor: pointer;
+        }
+        .header_logoText{
+            h1{
+                @apply font-semibold text-xl md:text-2xl ml-8 tracking-wider text-red-400 cursor-pointer
+            }
+        }
     }
-    .header_logoText{
-        h1{
-            @apply font-semibold text-xl md:text-2xl ml-8 tracking-wider text-red-400 cursor-pointer
+    .log_block{
+        .already_log{
+          @apply flex items-center;
+          img{
+            @apply rounded-full mr-2;
+          }
+          p{
+            @apply mr-2;
+          }
+          button{
+      @apply hover:text-red-700 transition-all duration-300 ease-in-out;
+          }
+        }
+        .log_block_signIn{
+          @apply mx-1;
+        }
+        .log_block_signUp{
+           @apply mx-1 border border-black rounded-lg p-2 ;
         }
     }
 }

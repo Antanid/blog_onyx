@@ -3,19 +3,57 @@ import Link from "next/link";
 import Image from "next/image";
 
 import ImgBlogLogo from "../../public/ImgBlogLogo.png";
-
+import { useSession, signOut } from "next-auth/react";
 
 const Header = () => {
+  const { data: session } = useSession();
+  function onLogOut() {
+    signOut();
+  }
+
+  console.log(session)
+
   return (
     <header className={styles.header}>
-      <Link href='/'>
-      <Image src={ImgBlogLogo} width={70} height={70} alt="logoImg" layout="fixed" />
-      </Link>
-      <Link href='/'>
-      <div className={styles.header_logoText}>
-        <h1>Blog Master</h1>
+      <div className={styles.header_logoBLock}>
+        <Link href="/">
+          <Image src={ImgBlogLogo} width={70} height={70} alt="logoImg" layout="fixed" />
+        </Link>
+        <Link href="/">
+          <div className={styles.header_logoText}>
+            <h1>Blog Master</h1>
+          </div>
+        </Link>
       </div>
-      </Link>
+      <div className={styles.log_block}>
+        {session ? (
+          <div className={styles.already_log}>
+            <Image
+              src={session.user?.image || ""}
+              width={50}
+              height={50}
+              alt="logoImg"
+              layout="intrinsic"
+            />
+            <p>
+              {  // @ts-ignore
+              session.user?.name?.split("").length > 10
+                ? session.user?.name?.split("").slice(0, 10).join("") + "..."
+                : session.user?.name}
+            </p>
+            <button onClick={onLogOut}>Log out</button>
+          </div>
+        ) : (
+          <>
+            <Link href="api/auth/signin">
+              <button className={styles.log_block_signIn}>Sign in</button>
+            </Link>
+            <Link href="api/auth/signin">
+              <button className={styles.log_block_signUp}>Sign up</button>
+            </Link>
+          </>
+        )}
+      </div>
     </header>
   );
 };
