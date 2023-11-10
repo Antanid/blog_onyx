@@ -10,12 +10,12 @@ export default function App({ Component, pageProps }: AppProps) {
     window.Headers = require('node-fetch').Headers;
   }
   return (
+    <ProviderAuth>
     <Provider store={store}>
-      <ProviderAuth>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ProviderAuth>
     </Provider>
+    </ProviderAuth>
   );
 }
