@@ -57,7 +57,7 @@ export const authConfig: AuthOptions = {
           if (!passwordsMatch) {
             return null;
           }
-          return user;
+          return {name: user.name, email: user.email, role: user.role} as any;
         } catch (error) {
           console.log("Error: ", error);
         }

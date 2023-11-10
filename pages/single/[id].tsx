@@ -17,8 +17,7 @@ interface commentsType {
   text: string;
   image?: string;
   time: string;
-}
-[];
+}[];
 
 const SinglePage = () => {
   const [text, setText] = useState("");
@@ -35,11 +34,11 @@ const SinglePage = () => {
 
   const newCommentPost = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     const newComent = {
       text: text,
-      name: session?.user?.name,
-      role: session?.user?.role,
-      image: session?.user?.image,
+      name: session?.user?.name || '',
+      image: session?.user?.image || '',
       id: String(data.comments.length + 1),
       time: getCurrentTime()
     };
@@ -130,7 +129,6 @@ const SinglePage = () => {
                       </div>
                     </div>
                     <div className={style.single_div_comments_role_time}>
-                      <p>{i.role}</p>
                       <p>{i.time}</p>
                     </div>
                   </li>

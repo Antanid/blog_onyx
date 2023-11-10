@@ -36,7 +36,7 @@ const EmailSignIn = () => {
     try {
 
       await validationSchema.validate({ name, email, password }, { abortEarly: false });
-
+console.log(role)
       const resUser = await fetch("api/userExists/route", {
         method: "POST",
         headers: {

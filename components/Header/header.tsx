@@ -45,7 +45,7 @@ const Header = () => {
           </div>
         ) : (
           <>
-            <Link href="api/auth/signin">
+            <Link href="/api/auth/signin">
               <button className={styles.log_block_signIn}>Sign in</button>
             </Link>
             <Link href="/log_in">
