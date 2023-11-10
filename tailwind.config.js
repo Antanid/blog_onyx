@@ -14,7 +14,9 @@ module.exports = {
         '300': '300px',
         '50': '50px',
       },
-      
+      width: {
+        '100': '100px'
+      }
     },
   },
   plugins: [],

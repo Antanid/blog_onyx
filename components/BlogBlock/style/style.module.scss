@@ -5,7 +5,7 @@
         @apply flex justify-between items-center;
 
         h2 {
-            @apply text-xl font-semibold mb-3;
+            @apply text-xl font-semibold mb-3 hover:underline;
         }
 
         .blog_titleDiv_editDelete {
@@ -46,15 +46,20 @@
                 @apply text-gray-600;
             }
         }
+        .blog_div_data{
+            @apply flex;
+            p{
+                @apply m-1 opacity-40;
+            }
+        }
 
     }
 
     .blog_div_bottomLine {
-        @apply flex justify-center items-center mb-16;
+        @apply flex justify-center items-center mb-16 p-1;
 
         .blog_div_bottomLine_line {
             @apply w-3/4 mx-auto border-b border-gray-400;
         }
     }
-
 }

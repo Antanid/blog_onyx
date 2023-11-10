@@ -16,7 +16,14 @@ export const singleApi = createApi({
             }),
             invalidatesTags: [{ type: 'Item', id: 'LIST' }]
         }),
+        newComment: build.mutation({
+            query: ({ newData, id }) => ({
+              url: `${id}`,
+              method: 'PUT',
+              body: newData
+            }),
+        })
     })
 })
 
-export const {useGetSingleDataQuery, useEditDataMutation } = singleApi;
+export const { useGetSingleDataQuery, useEditDataMutation, useNewCommentMutation } = singleApi;

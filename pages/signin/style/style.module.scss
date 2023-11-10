@@ -1,0 +1,6 @@
+.signin_div{
+  @apply flex items-center mx-auto flex-col mb-16;
+    h3{
+        @apply my-2 font-semibold text-2xl;
+    }
+}

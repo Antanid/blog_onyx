@@ -14,6 +14,7 @@ type BlogBlockType = {
   id: string;
   onDelete: (id: string) => void;
   session: any;
+  comments: string[];
 };
 
 const BlogBlock: React.FC<BlogBlockType> = ({
@@ -24,9 +25,12 @@ const BlogBlock: React.FC<BlogBlockType> = ({
   id,
   onDelete,
   session,
+  comments
 }) => {
   return (
+    <Link href={`/single/${id}`}>
     <div className={style.blog_div}>
+      
       <div className={style.blog_titleDiv}>
         <h2>{title}</h2>
         {session?.user?.role === "admin" && (
@@ -50,9 +54,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
         {mainText.length > 230 ? (
           <p>
             {mainText.split("").slice(0, 229).join("")}
-            <Link href={`/single/${id}`}>
               <span>...read more</span>
-            </Link>
           </p>
         ) : (
           <p>{mainText}</p>
@@ -66,6 +68,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
           <p>{likes}</p>
         </div>
         <div className={style.blog_div_data}>
+        <p>comments {comments.length}</p>
           <p>{date}</p>
         </div>
       </div>
@@ -73,6 +76,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
         <div className={style.blog_div_bottomLine_line}></div>
       </div>
     </div>
+    </Link>
   );
 };
 

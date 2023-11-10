@@ -3,6 +3,7 @@ import style from "./style/style.module.scss";
 import React, { useEffect, useState } from "react";
 import { useGetDataQuery, usePostDataMutation } from "@/redux/blogApi";
 import { useRouter } from "next/navigation";
+import { newDate } from "@/utils";
 
 const Create = () => {
   // @ts-ignore
@@ -22,17 +23,6 @@ const Create = () => {
     };
   }, [error, setError]);
 
-  function newDate() {
-    const date = new Date();
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Месяцы в JavaScript начинаются с 0, поэтому добавляем 1
-    const year = date.getFullYear();
-
-    const formattedDate = `${day}.${month}.${year}`;
-    return formattedDate;
-  }
-
   const onNewPost = async () => {
     const newPost = {
       title: title,
@@ -40,6 +30,7 @@ const Create = () => {
       likes: 0,
       id: +(data.length + 1),
       date: newDate(),
+      comments: []
     };
     if (title.length > 0 && textArea.length > 0) {
       await mutate(newPost);

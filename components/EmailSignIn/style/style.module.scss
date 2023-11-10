@@ -1,0 +1,21 @@
+.emailSignIn{
+    @apply shadow-md p-5 rounded-lg w-96 border-t-4 border-green-400;
+    h1{
+        @apply text-xl font-bold my-4;
+    }
+    form{
+        @apply flex flex-col;
+        button{
+            @apply bg-green-600 text-white font-bold cursor-pointer px-6 py-2;
+        }
+        input{
+        @apply p-3;
+        }
+        .error_div{
+            @apply bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2 w-full;
+        }
+    }
+    p{
+        @apply m-2;
+    }
+}

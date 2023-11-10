@@ -2,18 +2,22 @@
     @apply mx-auto max-w-screen-md p-4;
 
     .singlePage_info {
-        .singlePage_info_title{
+        .singlePage_info_title {
             @apply mb-8;
-            h1{
-            @apply text-4xl font-extrabold tracking-wider;
+
+            h1 {
+                @apply text-4xl font-extrabold tracking-wider;
             }
         }
-        .singlePage_info_main{
+
+        .singlePage_info_main {
             @apply mb-2;
-            p{
+
+            p {
                 @apply text-xl
             }
         }
+
         .single_div_data_like {
             @apply flex items-center justify-between;
 
@@ -29,6 +33,63 @@
                 }
             }
 
+        }
+
+        .single_div_comments {
+            .single_div_comments_textareaBlock {
+                margin-bottom: 25px;
+                textarea {
+                    @apply w-full resize-none rounded-lg border border-gray-300 h-24 p-2;
+                }
+                .single_div_comments_textareaBlock_button{
+                    .single_div_comments_textareaBlock_clear{
+                        @apply px-2 py-1 rounded-lg bg-red-500 text-white w-28 text-center m-0 mr-2 hover:bg-red-600 transition-all duration-300 ease-in-out;
+                    }
+                    .single_div_comments_textareaBlock_post{
+                        @apply px-2 py-1 rounded-lg bg-green-500 text-white w-28 text-center m-0 mr-2 hover:bg-green-700 transition-all duration-300 ease-in-out;
+                    }
+                }
+            }
+
+            .single_div_comments_textareaBlock_noComments {
+          @apply flex items-center justify-center;
+            }
+
+            .single_div_comments_textareaBlock_ul {
+                li {
+                   @apply border border-solid border-gray-300 rounded-lg my-4 flex relative;
+                    .single_div_comments_textareaBlock_li_name {
+                        @apply flex;
+
+                        .single_div_comments_imgName {
+                       @apply flex flex-col items-center text-center mx-2 py-3 w-100;
+
+                            p {
+                            @apply text-base;
+                            }
+
+                            .single_div_comments_role {
+                                @apply opacity-50;
+                            }
+                        }
+
+                    }
+
+                    .single_div_comments_textareaBlock_li_comments {
+                      @apply flex items-center border-l border-solid border-gray-300;
+
+                        h5 {
+                           @apply ml-2;
+                        }
+                    }
+                    .single_div_comments_role_time{
+                        @apply absolute flex right-3;
+                        p{
+                            @apply m-1 opacity-60;
+                        }
+                    }
+                }
+            }
         }
     }
 

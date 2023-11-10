@@ -7,6 +7,7 @@ import Loader from "@/components/Loader/Loader";
 import { store } from "@/redux/store";
 import { singleApi, useEditDataMutation, useGetSingleDataQuery } from "@/redux/singleApi";
 import { useSession } from "next-auth/react";
+import { clearCache } from "@/utils";
 
 const EditPage = () => {
   const { data: session } = useSession();
@@ -37,10 +38,10 @@ if(session?.user?.role !== 'admin'){
       date: data.date,
       likes: data.likes,
       id: data.id,
+      comments: data.comments
     };
     await mutate({ newData, id });
-    await store.dispatch(blogApi.util.resetApiState());
-    await store.dispatch(singleApi.util.resetApiState());
+    clearCache()
     router.push("/");
   };
 
@@ -50,8 +51,6 @@ if(session?.user?.role !== 'admin'){
       router.push("/");
     }
   }
-  
-  console.log(session)
 
   return (
     <div className={style.edits}>
