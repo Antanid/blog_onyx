@@ -17,7 +17,8 @@ interface commentsType {
   text: string;
   image?: string;
   time: string;
-}[];
+}
+[];
 
 const SinglePage = () => {
   const [text, setText] = useState("");
@@ -27,6 +28,7 @@ const SinglePage = () => {
   const { data = [], isLoading } = useGetSingleDataQuery(id);
   const { data: session } = useSession();
   const [mutate] = useNewCommentMutation();
+  console.log(session);
 
   function onChangeText(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(e.target.value);
@@ -37,10 +39,10 @@ const SinglePage = () => {
 
     const newComent = {
       text: text,
-      name: session?.user?.name || '',
-      image: session?.user?.image || '',
+      name: session?.user?.name || "",
+      image: session?.user?.image || "",
       id: String(data.comments.length + 1),
-      time: getCurrentTime()
+      time: getCurrentTime(),
     };
 
     const newData = {
@@ -50,13 +52,13 @@ const SinglePage = () => {
       likes: data.likes,
       timePost: data.timePost,
       id: data.id,
-      comments: [...data.comments, newComent]
+      comments: [...data.comments, newComent],
     };
 
     if (text.length > 0) {
       try {
-       const t =  await mutate({newData: newData,  id: id });
-     clearCache();
+        const t = await mutate({ newData: newData, id: id });
+        clearCache();
       } catch (error) {
         console.log(error);
       }
@@ -88,23 +90,25 @@ const SinglePage = () => {
           </div>
           <div className={style.single_div_comments}>
             Comments
-            <form className={style.single_div_comments_textareaBlock}>
-              <textarea value={text} onChange={onChangeText} cols={30} rows={10} />
-              <div className={style.single_div_comments_textareaBlock_button}>
-                <button
-                  onClick={() => setText("")}
-                  className={style.single_div_comments_textareaBlock_clear}
-                >
-                  Clear area
-                </button>
-                <button
-                  onClick={newCommentPost}
-                  className={style.single_div_comments_textareaBlock_post}
-                >
-                  Post
-                </button>
-              </div>
-            </form>
+            {session && (
+              <form className={style.single_div_comments_textareaBlock}>
+                <textarea value={text} onChange={onChangeText} cols={30} rows={10} />
+                <div className={style.single_div_comments_textareaBlock_button}>
+                  <button
+                    onClick={() => setText("")}
+                    className={style.single_div_comments_textareaBlock_clear}
+                  >
+                    Clear area
+                  </button>
+                  <button
+                    onClick={newCommentPost}
+                    className={style.single_div_comments_textareaBlock_post}
+                  >
+                    Post
+                  </button>
+                </div>
+              </form>
+            )}
             {data.comments.length === 0 ? (
               <div className={style.single_div_comments_textareaBlock_noComments}>
                 <p>No comments</p>
