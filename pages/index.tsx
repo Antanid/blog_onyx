@@ -11,6 +11,7 @@ interface blogDataType {
   likes: number;
   comments: string[];
   id: string;
+  timePost: string;
 }
 
 export default function Home() {
@@ -50,6 +51,7 @@ export default function Home() {
               date={i.date}
               likes={i.likes}
               id={i.id}
+              timePost={i.timePost}
             />
           ))
       )}

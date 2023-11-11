@@ -37,6 +37,7 @@ if(session?.user?.role !== 'admin'){
       mainText: textArea,
       date: data.date,
       likes: data.likes,
+      timePost: data.timePost,
       id: data.id,
       comments: data.comments
     };

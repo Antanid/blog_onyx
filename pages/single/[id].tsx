@@ -48,6 +48,7 @@ const SinglePage = () => {
       mainText: data.mainText,
       date: data.date,
       likes: data.likes,
+      timePost: data.timePost,
       id: data.id,
       comments: [...data.comments, newComent]
     };

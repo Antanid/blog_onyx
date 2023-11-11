@@ -15,6 +15,7 @@ type BlogBlockType = {
   onDelete: (id: string) => void;
   session: any;
   comments: string[];
+  timePost: string;
 };
 
 const BlogBlock: React.FC<BlogBlockType> = ({
@@ -25,7 +26,8 @@ const BlogBlock: React.FC<BlogBlockType> = ({
   id,
   onDelete,
   session,
-  comments
+  comments,
+  timePost
 }) => {
   return (
     <Link href={`/single/${id}`}>
@@ -70,6 +72,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
         <div className={style.blog_div_data}>
         <p>comments {comments.length}</p>
           <p>{date}</p>
+          <p>{timePost}</p>
         </div>
       </div>
       <div className={style.blog_div_bottomLine}>

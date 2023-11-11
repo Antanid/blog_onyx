@@ -28,6 +28,7 @@ const Create = () => {
       title: title,
       mainText: textArea,
       likes: 0,
+      timePost: newDate(),
       id: +(data.length + 1),
       date: newDate(),
       comments: []
