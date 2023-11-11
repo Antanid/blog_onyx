@@ -30,11 +30,13 @@ const BlogBlock: React.FC<BlogBlockType> = ({
   timePost
 }) => {
   return (
-    <Link href={`/single/${id}`}>
+   
     <div className={style.blog_div}>
       
       <div className={style.blog_titleDiv}>
+      <Link href={`/single/${id}`}>
         <h2>{title}</h2>
+        </Link>
         {session?.user?.role === "admin" && (
           <div className={style.blog_titleDiv_editDelete}>
             <Link href={`edit/${id}`}>
@@ -52,6 +54,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
           </div>
         )}
       </div>
+      <Link href={`/single/${id}`}>
       <div className={style.blog_div_text}>
         {mainText.length > 230 ? (
           <p>
@@ -62,6 +65,7 @@ const BlogBlock: React.FC<BlogBlockType> = ({
           <p>{mainText}</p>
         )}
       </div>
+      </Link>
       <div className={style.blog_div_data_like}>
         <div className={style.blog_div_button}>
           <button>
@@ -79,7 +83,6 @@ const BlogBlock: React.FC<BlogBlockType> = ({
         <div className={style.blog_div_bottomLine_line}></div>
       </div>
     </div>
-    </Link>
   );
 };
 
