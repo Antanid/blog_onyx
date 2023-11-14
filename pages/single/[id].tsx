@@ -9,8 +9,14 @@ import likeImg from "../../public/likeImg.png";
 import defautlImg from "../../public/defaultAvatar.png";
 import { useSession } from "next-auth/react";
 import { clearCache, getCurrentTime } from "@/utils";
+import SingleTittle from "@/components/Single/SingleTittle";
+import SingleMainText from "@/components/Single/SingleMainText";
+import SingleLikesDate from "@/components/Single/SingleLikesDate";
+import CommentsForm from "@/components/Single/CommentsForm";
+import NoComents from "@/components/Single/NoComents";
+import CommentsList from "@/components/Single/CommentsList";
 
-interface commentsType {
+export interface commentsType {
   name: string;
   id: string;
   role: string;
@@ -28,7 +34,10 @@ const SinglePage = () => {
   const { data = [], isLoading } = useGetSingleDataQuery(id);
   const { data: session } = useSession();
   const [mutate] = useNewCommentMutation();
-  console.log(session);
+
+  function clearForm() {
+    setText("");
+  }
 
   function onChangeText(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(e.target.value);
@@ -58,6 +67,7 @@ const SinglePage = () => {
     if (text.length > 0) {
       try {
         const t = await mutate({ newData: newData, id: id });
+        await clearForm();
         clearCache();
       } catch (error) {
         console.log(error);
@@ -71,74 +81,26 @@ const SinglePage = () => {
         <Loader />
       ) : (
         <div className={style.singlePage_info}>
-          <div className={style.singlePage_info_title}>
-            <h1>{data.title}</h1>
-          </div>
-          <div className={style.singlePage_info_main}>
-            <p>{data.mainText}</p>
-          </div>
-          <div className={style.single_div_data_like}>
-            <div className={style.single_div_button}>
-              <button>
-                <Image src={likeImg} alt="likeImg" width={30} height={30} layout="fixed" />
-              </button>
-              <p>{data.likes}</p>
-            </div>
-            <div className={style.single_div_data}>
-              <p>{data.date}</p>
-            </div>
-          </div>
+          <SingleTittle title={data.title} />
+          <SingleMainText mainText={data.mainText} />
+          <SingleLikesDate likeImg={likeImg} likes={data.likes} date={data.date} />
           <div className={style.single_div_comments}>
             Comments
             {session && (
-              <form className={style.single_div_comments_textareaBlock}>
-                <textarea value={text} onChange={onChangeText} cols={30} rows={10} />
-                <div className={style.single_div_comments_textareaBlock_button}>
-                  <button
-                    onClick={() => setText("")}
-                    className={style.single_div_comments_textareaBlock_clear}
-                  >
-                    Clear area
-                  </button>
-                  <button
-                    onClick={newCommentPost}
-                    className={style.single_div_comments_textareaBlock_post}
-                  >
-                    Post
-                  </button>
-                </div>
-              </form>
+              <CommentsForm
+                text={text}
+                onChangeText={onChangeText}
+                clearForm={clearForm}
+                newCommentPost={newCommentPost}
+              />
             )}
             {data.comments.length === 0 ? (
-              <div className={style.single_div_comments_textareaBlock_noComments}>
-                <p>No comments</p>
-              </div>
+              <NoComents />
             ) : (
-              <ul className={style.single_div_comments_textareaBlock_ul}>
-                {[...data.comments].reverse().map((i: commentsType) => (
-                  <li key={i.id}>
-                    <div className={style.single_div_comments_textareaBlock_li_name}>
-                      <div className={style.single_div_comments_imgName}>
-                        <Image
-                          src={i.image || defautlImg}
-                          width={50}
-                          height={50}
-                          alt="logoImg"
-                          layout="intrinsic"
-                        />
-                        <p className={style.single_div_comments_name}>{i.name}</p>
-                      </div>
-
-                      <div className={style.single_div_comments_textareaBlock_li_comments}>
-                        <h5>{i.text}</h5>
-                      </div>
-                    </div>
-                    <div className={style.single_div_comments_role_time}>
-                      <p>{i.time}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <CommentsList
+              defautlImg={defautlImg}
+              data={data}
+              />
             )}
           </div>
         </div>

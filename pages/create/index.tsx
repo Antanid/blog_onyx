@@ -1,9 +1,13 @@
 import style from "./style/style.module.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useGetDataQuery, usePostDataMutation } from "@/redux/blogApi";
 import { useRouter } from "next/navigation";
 import { newDate } from "@/utils";
+import ErrorMessage from "@/components/CreatePage/ErrorMessage";
+import CreateTittle from "@/components/CreatePage/CreateTittle";
+import CreateTextArea from "@/components/CreatePage/CreateTextArea";
+import CreateButton from "@/components/CreatePage/CreateButton";
 
 const Create = () => {
   // @ts-ignore
@@ -31,7 +35,7 @@ const Create = () => {
       timePost: newDate(),
       id: +(data.length + 1),
       date: newDate(),
-      comments: []
+      comments: [],
     };
     if (title.length > 0 && textArea.length > 0) {
       await mutate(newPost);
@@ -48,36 +52,19 @@ const Create = () => {
     }
   }
 
+  function onChangeTittle(e: ChangeEvent<HTMLTextAreaElement>) {
+    setTitle(e.target.value);
+  }
+  function onChangeTextArea(e: ChangeEvent<HTMLTextAreaElement>) {
+    setTextArea(e.target.value);
+  }
+
   return (
     <div className={style.create}>
-      <div className={error ? style.error_show : style.error_disable}>
-        <p>
-          {`Please write somithing in ${
-            title.length === 0 && textArea.length === 0
-              ? "input/main text"
-              : title.length === 0
-              ? "title"
-              : "main text"
-          }. Then you can post`}
-        </p>
-      </div>
-
-      <div className={style.create_title}>
-        <h2>Yout title</h2>
-        <textarea value={title} onChange={(e) => setTitle(e.target.value)} />
-      </div>
-      <div className={style.create_mainText}>
-        <h2>Edit your main text</h2>
-        <textarea value={textArea} onChange={(e) => setTextArea(e.target.value)} />
-      </div>
-      <div className={style.create_buttons}>
-        <button onClick={goBack} className={style.create_buttons_cancel}>
-          Go back
-        </button>
-        <button onClick={onNewPost} className={style.create_buttons_post}>
-          Post
-        </button>
-      </div>
+      <ErrorMessage error={error} title={title} textArea={textArea} />
+      <CreateTittle title={title} onChangeTittle={onChangeTittle} />
+      <CreateTextArea textArea={textArea} onChangeTextArea={onChangeTextArea} />
+      <CreateButton onNewPost={onNewPost} goBack={goBack} />
     </div>
   );
 };

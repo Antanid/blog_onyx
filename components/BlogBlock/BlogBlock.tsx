@@ -5,6 +5,11 @@ import Link from "next/link";
 import likeImg from "../../public/likeImg.png";
 import editImg from "../../public/editImg.png";
 import deleteImg from "../../public/deleteImg.png";
+import BlogTittle from "./BlogTittle";
+import BlogMainText from "./BlogMainText";
+import BlogInfoPanel from "./BlogInfoPanel";
+import BlogUnderline from "./BlogUnderline";
+import { sessionType } from "@/utils/type";
 
 type BlogBlockType = {
   title: string;
@@ -13,7 +18,7 @@ type BlogBlockType = {
   likes: number;
   id: string;
   onDelete: (id: string) => void;
-  session: any;
+  session: sessionType;
   comments: string[];
   timePost: string;
 };
@@ -27,61 +32,27 @@ const BlogBlock: React.FC<BlogBlockType> = ({
   onDelete,
   session,
   comments,
-  timePost
+  timePost,
 }) => {
   return (
-   
     <div className={style.blog_div}>
-      
-      <div className={style.blog_titleDiv}>
-      <Link href={`/single/${id}`}>
-        <h2>{title}</h2>
-        </Link>
-        {session?.user?.role === "admin" && (
-          <div className={style.blog_titleDiv_editDelete}>
-            <Link href={`edit/${id}`}>
-              <Image
-                className={style.blog_editImg}
-                src={editImg}
-                alt="editText"
-                width={20}
-                height={20}
-              />
-            </Link>
-            <button onClick={() => onDelete(id)}>
-              <Image src={deleteImg} alt="editText" width={20} height={20} />
-            </button>
-          </div>
-        )}
-      </div>
-      <Link href={`/single/${id}`}>
-      <div className={style.blog_div_text}>
-        {mainText.length > 230 ? (
-          <p>
-            {mainText.split("").slice(0, 229).join("")}
-              <span>...read more</span>
-          </p>
-        ) : (
-          <p>{mainText}</p>
-        )}
-      </div>
-      </Link>
-      <div className={style.blog_div_data_like}>
-        <div className={style.blog_div_button}>
-          <button>
-            <Image src={likeImg} alt="likeImg" width={30} height={30} layout="fixed" />
-          </button>
-          <p>{likes}</p>
-        </div>
-        <div className={style.blog_div_data}>
-        <p>comments {comments.length}</p>
-          <p>{date}</p>
-          <p>{timePost}</p>
-        </div>
-      </div>
-      <div className={style.blog_div_bottomLine}>
-        <div className={style.blog_div_bottomLine_line}></div>
-      </div>
+      <BlogTittle
+        id={id}
+        title={title}
+        onDelete={onDelete}
+        session={session}
+        editImg={editImg}
+        deleteImg={deleteImg}
+      />
+      <BlogMainText mainText={mainText} id={id} />
+      <BlogInfoPanel
+        likeImg={likeImg}
+        likes={likes}
+        comments={comments}
+        timePost={timePost}
+        date={date}
+      />
+      <BlogUnderline />
     </div>
   );
 };
