@@ -3,7 +3,7 @@ import style from "./style/style.module.scss";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useGetDataQuery, usePostDataMutation } from "@/redux/blogApi";
 import { useRouter } from "next/navigation";
-import { newDate } from "@/utils";
+import { getCurrentTime, newDate } from "@/utils";
 import ErrorMessage from "@/components/CreatePage/ErrorMessage";
 import CreateTittle from "@/components/CreatePage/CreateTittle";
 import CreateTextArea from "@/components/CreatePage/CreateTextArea";
@@ -32,7 +32,7 @@ const Create = () => {
       title: title,
       mainText: textArea,
       likes: 0,
-      timePost: newDate(),
+      timePost: getCurrentTime(),
       id: +(data.length + 1),
       date: newDate(),
       comments: [],
