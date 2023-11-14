@@ -5,7 +5,7 @@ import React from "react";
 import { sessionType } from "@/utils/type";
 
 type HeaderAccountProps = {
-  session: sessionType;
+  session: any;
   defaultAvatar: string | StaticImageData;
   onLogOut: () => void;
 };

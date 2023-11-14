@@ -6,4 +6,4 @@ export type sessionType = {
       image?: string,
       role: string
     }
-}
+} | null

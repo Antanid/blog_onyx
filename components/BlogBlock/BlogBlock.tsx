@@ -18,7 +18,7 @@ type BlogBlockType = {
   likes: number;
   id: string;
   onDelete: (id: string) => void;
-  session: sessionType;
+  session: any;
   comments: string[];
   timePost: string;
 };
